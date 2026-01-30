@@ -20,11 +20,6 @@ function createLine(start, end, color = 0xffffff) {
   const material = new THREE.LineBasicMaterial({ color });
   return new THREE.Line(geometry, material);
 }
-// --------------------
-// Create Shapes
-// --------------------
-
-
 
 // Lines
 const line = createLine(
