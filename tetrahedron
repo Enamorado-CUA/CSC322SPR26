@@ -1,0 +1,71 @@
+
+// Import THREE
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+
+// Create Renderer
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Create Camera and Scene
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+camera.position.set(0, 0, 100);
+const scene = new THREE.Scene();
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// Line (1D Primitive)
+function createLine(start, end, color = 0xffffff) {
+  const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+  const material = new THREE.LineBasicMaterial({ color });
+  return new THREE.Line(geometry, material);
+}
+
+// Lines
+const line = createLine(
+  new THREE.Vector3(-20, -10, 0),
+  new THREE.Vector3(20, -10, 0)
+);
+scene.add(line);
+
+const line2 = createLine(
+  new THREE.Vector3(20, -10, 0),
+  new THREE.Vector3(0, 25, 0)
+);
+scene.add(line2);
+
+const line3 = createLine(
+  new THREE.Vector3(0, 25, 0),
+  new THREE.Vector3(-20, -10, 0)
+);
+scene.add(line3);
+
+const line4 = createLine(
+  new THREE.Vector3(-20, -10, 0),
+  new THREE.Vector3(0, 0, 30)
+);
+scene.add(line4);
+
+const line5 = createLine(
+  new THREE.Vector3(20, -10, 0),
+  new THREE.Vector3(0, 0, 30)
+);
+scene.add(line5);
+
+const line6 = createLine(
+  new THREE.Vector3(0, 25, 0),
+  new THREE.Vector3(0, 0, 30)
+);
+scene.add(line6);
+
+// Render Loop
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+
+
+
