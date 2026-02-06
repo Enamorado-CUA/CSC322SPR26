@@ -1,0 +1,104 @@
+// Import THREE
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+
+// Create Renderer
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Create Camera and Scene
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+camera.position.set(0, 100, 900);
+const scene = new THREE.Scene();
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// Triangle
+function createTriangle(a, b, c, color = 0xffffff) {
+  const geometry = new THREE.BufferGeometry().setFromPoints([a, b, c]);
+  const material = new THREE.LineBasicMaterial({ color });
+  return new THREE.Line(geometry, material);
+}
+
+// Square
+function createSquare(a, b, c, d, color = 0xffffff) {
+  const geometry = new THREE.BufferGeometry().setFromPoints([a, b, c, d]);
+  const material = new THREE.LineBasicMaterial({ color });
+  return new THREE.Line(geometry, material);
+}
+
+const Triangle = createTriangle(
+  new THREE.Vector3(-17, 500,  17),
+  new THREE.Vector3( 17, 500,  17),
+  new THREE.Vector3(  0, 555,   0),
+  new THREE.Color('red')
+);
+scene.add(Triangle);
+
+const Triangle2 = createTriangle(
+  new THREE.Vector3(17, 500,  17),
+  new THREE.Vector3(17, 500, -17),
+  new THREE.Vector3( 0, 555,   0),
+  0x00ff00
+);
+scene.add(Triangle2);
+
+const Triangle3 = createTriangle(
+  new THREE.Vector3(17, 500, -17),
+  new THREE.Vector3(-17, 500, -17),
+  new THREE.Vector3(0, 555, 0),
+  new THREE.Color('blue')
+);
+scene.add(Triangle3);
+
+const Triangle4 = createTriangle(
+  new THREE.Vector3(-17, 500, -17),
+  new THREE.Vector3(-17, 500, 17),
+  new THREE.Vector3(0, 555, 0),
+  new THREE.Color(`rgb(255, 47, 0)`) 
+);
+scene.add(Triangle4);
+
+const square = createSquare(
+  new THREE.Vector3(-27.5, 0,  27.5),
+  new THREE.Vector3( 27.5, 0,  27.5),
+  new THREE.Vector3(17, 500, 17),
+  new THREE.Vector3(-17, 500, 17),
+  new THREE.Color('purple')
+);
+scene.add(square);
+
+const square2 = createSquare(
+  new THREE.Vector3(27.5, 0,  27.5),
+  new THREE.Vector3(27.5, 0, -27.5),
+  new THREE.Vector3(17, 500, -17),
+  new THREE.Vector3(17, 500, 17),
+  0x00ffff
+);
+scene.add(square2);
+
+const square3 = createSquare(
+  new THREE.Vector3(27.5, 0, -27.5),
+  new THREE.Vector3(-27.5, 0, -27.5),
+  new THREE.Vector3(-17, 500, -17),
+  new THREE.Vector3(17, 500, -17),
+  new THREE.Color('lime')
+);
+scene.add(square3);
+
+const square4 = createSquare(
+  new THREE.Vector3(-27.5, 0, -27.5),
+  new THREE.Vector3(-27.5, 0, 27.5),
+  new THREE.Vector3(-17, 500, 17),
+  new THREE.Vector3(-17, 500, -17),
+  new THREE.Color(`rgb(128,0,128)`) 
+);
+scene.add(square4);
+
+function animate() {
+  requestAnimationFrame(animate);          
+  scene.rotation.y += 0.01;         
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
